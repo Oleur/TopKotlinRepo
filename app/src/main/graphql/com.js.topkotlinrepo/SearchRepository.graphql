@@ -1,0 +1,64 @@
+query GetAllKotlinRepositories {
+  search(query: "language:Kotlin sort:stars-desc", type: REPOSITORY, first: 100) {
+    nodes {
+      ... on Repository {
+        id
+        name
+        description
+        stargazers {
+          totalCount
+        }
+        owner {
+          login
+        }
+      }
+    }
+  }
+}
+
+query GetRepositoryInsightsByDate($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    description
+    name
+    owner {
+      login
+    }
+    issues{
+      totalCount
+    }
+    stargazers {
+      totalCount
+    }
+    watchers {
+      totalCount
+    }
+    forkCount
+    pullRequests(orderBy: {field: CREATED_AT, direction: DESC}) {
+      totalCount
+    }
+  }
+}
+
+query GetPullRequests($query: String!) {
+  search(first: 100, query: $query, type: ISSUE) {
+    nodes {
+      ... on PullRequest {
+        title
+        state
+        number
+      }
+    }
+  }
+}
+
+query GetIssues($query: String!) {
+  search(first: 100, query: $query, type: ISSUE) {
+    nodes {
+      ... on Issue {
+        title
+        state
+        number
+      }
+    }
+  }
+}

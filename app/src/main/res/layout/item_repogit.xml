@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.js.topkotlinrepo.ui.repogitlist.RepoGitItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_default"
+        android:onClick="@{() -> viewModel.onRepoGitSelected()}"
+        android:padding="@dimen/spacing_small">
+
+        <ImageView
+            android:id="@+id/repogit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_repogit"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/repogit_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            android:text="@{@string/repo_git_full_name(viewModel.owner, viewModel.name)}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/repogit_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="JulienSalvi/My-Awesome-Repo-Android" />
+
+        <TextView
+            android:id="@+id/repogit_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_small"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            android:text="@{viewModel.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/repogit_icon"
+            app:layout_constraintTop_toBottomOf="@+id/repogit_title"
+            tools:text="This a cool repository\nAndroid stuff" />
+
+        <TextView
+            android:id="@+id/repogit_star"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_very_small"
+            android:gravity="center|start"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            app:drawableStartCompat="@drawable/ic_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/repogit_icon"
+            app:layout_constraintTop_toBottomOf="@+id/repogit_desc"
+            app:prettyNumberText="@{viewModel.stars}"
+            tools:text="10.8k" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.js.topkotlinrepo.ui.repogit.RepoGitViewModel" />
+        <variable
+            name="issueAdapter"
+            type="com.js.topkotlinrepo.ui.repogit.RepoIssueAdapter" />
+        <variable
+            name="prAdapter"
+            type="com.js.topkotlinrepo.ui.repogit.RepoPullRequestAdapter" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/spacing_large">
+
+            <View
+                android:id="@+id/backdrop"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintDimensionRatio="3:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:background="@drawable/bg_repo_indicator"
+                android:elevation="4dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/backdrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backdrop"
+                app:srcCompat="@drawable/ic_repogit"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_very_small"
+                android:fontFamily="sans-serif-black"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:text="@{viewModel.repoGit.name}"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/owner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                tools:text="My-Awesome-Repo-Android"/>
+
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:text="@{viewModel.repoGit.owner}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/backdrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                tools:text="John Doe"/>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:gravity="center"
+                android:paddingStart="@dimen/spacing_small"
+                android:paddingEnd="@dimen/spacing_small"
+                android:text="@{viewModel.repoGit.description}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backdrop"
+                tools:text="This a cool repository Android stuff that is awesome" />
+
+            <TextView
+                android:id="@+id/watch_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:background="@color/grey"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{@string/repo_git_watchers(viewModel.repoGit.watchers)}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/start_count"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc"
+                tools:text="Watch 19"/>
+
+            <TextView
+                android:id="@+id/start_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:background="@color/grey"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{@string/repo_git_stars(viewModel.repoGit.stars)}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/fork_count"
+                app:layout_constraintStart_toEndOf="@+id/watch_count"
+                app:layout_constraintTop_toBottomOf="@+id/desc"
+                tools:text="Star 66"/>
+
+            <TextView
+                android:id="@+id/fork_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:background="@color/grey"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{@string/repo_git_forks(viewModel.repoGit.forks)}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_count"
+                app:layout_constraintTop_toBottomOf="@+id/desc"
+                tools:text="Fork 25"/>
+
+            <TextView
+                android:id="@+id/insights_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:paddingStart="@dimen/spacing_medium"
+                android:paddingEnd="@dimen/spacing_medium"
+                android:text="@{@string/repo_issues_count(viewModel.issues.size, viewModel.startDate, viewModel.endDate)}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_arrow_drop_down"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/watch_count"
+                tools:text="10 issues: from 02/06/2020 to 09/06/2020"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:clipToPadding="false"
+                android:padding="@dimen/spacing_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/insights_title"
+                app:setAdapter="@{issueAdapter}"
+                app:setData="@{viewModel.issues}"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_repo_issue"/>
+
+            <TextView
+                android:id="@+id/empty_issues_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:padding="@dimen/spacing_medium"
+                android:text="@string/repo_git_empty_issues"
+                android:textColor="@color/colorSecondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/list"
+                app:layout_constraintEnd_toEndOf="@+id/list"
+                app:layout_constraintStart_toStartOf="@+id/list"
+                app:layout_constraintTop_toTopOf="@+id/list"
+                app:visible="@{!viewModel.loading &amp;&amp; viewModel.issues.empty}" />
+
+            <TextView
+                android:id="@+id/pull_request_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:paddingStart="@dimen/spacing_medium"
+                android:paddingEnd="@dimen/spacing_medium"
+                android:text="@{@string/repo_pull_request_count(viewModel.pullRequests.size)}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list"
+                tools:text="10 pull requests"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pull_request_list"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:clipToPadding="false"
+                android:padding="@dimen/spacing_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pull_request_title"
+                app:setAdapter="@{prAdapter}"
+                app:setData="@{viewModel.pullRequests}"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_repo_issue"/>
+
+            <TextView
+                android:id="@+id/empty_pull_request_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:padding="@dimen/spacing_medium"
+                android:text="@string/repo_git_empty_pull_requests"
+                android:textColor="@color/colorSecondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/pull_request_list"
+                app:layout_constraintEnd_toEndOf="@+id/pull_request_list"
+                app:layout_constraintStart_toStartOf="@+id/pull_request_list"
+                app:layout_constraintTop_toTopOf="@+id/pull_request_list"
+                app:visible="@{!viewModel.loading &amp;&amp; viewModel.pullRequests.empty}" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visible="@{viewModel.loading}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

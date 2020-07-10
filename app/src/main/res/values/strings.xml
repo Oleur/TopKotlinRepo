@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TopKotlinRepo</string>
+
+    <string name="login_label">Connection</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Mot de passe</string>
+    <string name="login_connexion_button">Connexion</string>
+
+    <string name="repo_git_empty_label">No repositories! Sorry :(</string>
+    <string name="repo_git_empty_issues">No issues</string>
+    <string name="repo_git_empty_pull_requests">No pull requests</string>
+    <string name="repo_git_date_title">Display issues from…</string>
+    <string name="repo_git_full_name">%1$s/%2$s</string>
+    <string name="repo_git_watchers">Watchers: %d</string>
+    <string name="repo_git_stars">Stars: %d</string>
+    <string name="repo_git_forks">Forks: %d</string>
+    <string name="repo_issue_number">#%d</string>
+
+    <string name="repo_issues_count">%1$s issues from %2$s to %3$s</string>
+    <string name="repo_pull_request_count">%1$s Pull requests</string>
+
+    <string name="all_date_range">%1$s to %2$s</string>
+</resources>

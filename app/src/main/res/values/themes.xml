@@ -1,0 +1,16 @@
+<resources>
+    <style name="TopKotlinRepoTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorSecondary</item>
+        <item name="colorSurface">@color/colorBackground</item>
+        <item name="colorError">@color/colorError</item>
+
+        <item name="android:textColor">@color/colorSecondary</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TKR.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TKR.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TKR.LargeComponent</item>
+
+        <item name="materialButtonStyle">@style/Widget.TKR.Button</item>
+    </style>
+</resources>
