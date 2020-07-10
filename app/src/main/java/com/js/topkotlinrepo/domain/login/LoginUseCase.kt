@@ -2,6 +2,7 @@ package com.js.topkotlinrepo.domain.login
 
 import com.js.topkotlinrepo.data.local.SessionRepository
 import com.js.topkotlinrepo.data.network.AuthRepository
+import com.js.topkotlinrepo.data.network.Success
 
 class LoginUseCase(private val authRepository: AuthRepository,
                    private val sessionRepository: SessionRepository) {
@@ -20,9 +21,9 @@ class LoginUseCase(private val authRepository: AuthRepository,
     }
 
     fun authenticate(code: String): Boolean {
-        val token = authRepository.authenticate(code)
-        return if (token.isNotEmpty()) {
-            sessionRepository.token = token
+        val response = authRepository.authenticate(code)
+        return if (response is Success) {
+            sessionRepository.token = response.token
             true
         } else {
             false

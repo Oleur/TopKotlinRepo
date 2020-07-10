@@ -8,7 +8,7 @@ import org.json.JSONObject
 
 class AuthRepository {
 
-    fun authenticate(code: String): String {
+    fun authenticate(code: String): AuthState {
         val client = OkHttpClient.Builder().build()
         val body = FormBody.Builder()
             .add("client_id", BuildConfig.GITHUB_CLIENT_ID)
@@ -23,14 +23,19 @@ class AuthRepository {
             .build()
 
         val response = client.newCall(request).execute()
-        return if (response.isSuccessful) {
+        return if (response.isSuccessful && response.body != null) {
             try {
-                JSONObject(response.body?.string()!!).optString("access_token", "")
+                Success(JSONObject(response.body?.string()!!).optString("access_token", ""))
             } catch (e: Exception) {
-                ""
+                Error
             }
         } else {
-            ""
+            Error
         }
     }
 }
+
+sealed class AuthState
+
+data class Success(val token: String) : AuthState()
+object Error : AuthState()

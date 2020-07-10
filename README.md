@@ -5,11 +5,13 @@ Using the latest GitHub API v4 with GraphQL and Apollo on the Android side to co
 For dependency injection, Koin is used as the application is still small enough.
 For the architecture, high use of the Jetpack libraries (ViewModel, LiveData, Fragment, KTX...) to
 ensure a good implementation of Clean Architecture principles.
+Using the Material library and ConstraintLayout for building UI components.
+Using ViewBinding and DataBinding for displaying data in views.
 
 **UI > ViewModels > UseCases > Repositories**
 
 JodaTime is used from date operations.
-OkHttp for making HTTP requests (no need to add Retrofit for what you are doing here)
+OkHttp for making HTTP requests (no need to add Retrofit for what we are doing here)
 
 ### Application UI/UX improvements
 - Setting up a real design system based on a Material Theme
@@ -20,7 +22,6 @@ OkHttp for making HTTP requests (no need to add Retrofit for what you are doing 
 - Support for large screens and tablets
 
 ### Application architecture improvements
-- Use OpenID AppAuth library for handling authentication instead of a hacky WebView
 - Find the right navigation system for the application
 - Challenging the Clean archi + MVVM once the app is bigger
 - Maybe go multi modules
@@ -29,8 +30,10 @@ OkHttp for making HTTP requests (no need to add Retrofit for what you are doing 
 - Scrolling is disabled for pull request RecyclerView (only one RecyclerView should be used with a merge adapter to display the data)
 
 ### Other improvements 
+- Use OpenID AppAuth library for handling authentication instead of a hacky WebView
 - Add pagination with GraphQL using `cursor` and `edge`
 - Migration to coroutines `Flow`
+- Handle back nav with login and auth fragments 
 - Adding instrumental tests
 - Adding more unit tests
 
@@ -44,5 +47,9 @@ OkHttp for making HTTP requests (no need to add Retrofit for what you are doing 
 - Testing object manipulation and transformation is quite important to ensure that all the required information is available when needed
 
 ### Completion
-- 90%: more testing is need, oauth needs improvements  
+- 90%: more testing is needed (coverage is too low), oauth needs to be refactored  
+- Coverage:
+  - Class **13%** (37/269)
+  - Method **15%** (101/665)
+  - Line **5%** (147/2620)
  

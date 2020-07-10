@@ -24,7 +24,7 @@ class RepoGitListViewModel(private val useCase: RepoGitUseCase) : ViewModel() {
     }
 
     private fun mapViewModels(list: List<RepoGit>) = list.map { repoGit ->
-        RepoGitItemViewModel(repoGit.id, repoGit.name, repoGit.owner, repoGit.description, repoGit.stars, ::onSelectRepository)
+        repoGit.toRepoGitItemViewModel(::onSelectRepository)
     }
 
     private fun onSelectRepository(repo: RepoGitItemViewModel) {

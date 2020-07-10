@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class RepoGitUseCaseTest {
 
     val repository = mock<RepoGitRepository>()

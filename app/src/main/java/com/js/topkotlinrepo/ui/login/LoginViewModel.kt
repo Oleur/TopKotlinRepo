@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val useCase: LoginUseCase) : ViewModel() {
 
     val state = MutableLiveData<LoginState>()
-    val userName = MutableLiveData<String>()
+    val emailAddress = MutableLiveData<String>()
 
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
-            val loginOk = useCase.login(userName.value)
+            val loginOk = useCase.login(emailAddress.value)
             if (loginOk) {
                 state.postValue(NavigateToAuth)
             } else {

@@ -1,5 +1,9 @@
 package com.js.topkotlinrepo.domain.repogitlist
 
+import com.js.topkotlinrepo.GetAllKotlinRepositoriesQuery
+import com.js.topkotlinrepo.GetIssuesQuery
+import com.js.topkotlinrepo.GetPullRequestsQuery
+import com.js.topkotlinrepo.GetRepositoryInsightsByDateQuery
 import com.js.topkotlinrepo.type.IssueState
 import com.js.topkotlinrepo.type.PullRequestState
 
@@ -33,3 +37,21 @@ data class RepoPullRequest(
     val title: String,
     val number: Int
 )
+
+// Mappers
+fun GetRepositoryInsightsByDateQuery.Repository.toRepoGitDetail(): RepoGitDetail {
+    return RepoGitDetail(name, owner.login, description, stargazers.totalCount,
+        issues.totalCount, watchers.totalCount, forkCount, pullRequests.totalCount)
+}
+
+fun GetIssuesQuery.AsIssue.toRepoIssue(): RepoIssue {
+    return RepoIssue(state, title, number)
+}
+
+fun GetPullRequestsQuery.AsPullRequest.toRepoPullRequest(): RepoPullRequest {
+    return RepoPullRequest(state, title, number)
+}
+
+fun GetAllKotlinRepositoriesQuery.AsRepository.toRepoGit(): RepoGit {
+    return RepoGit(id, name, owner.login, description, stargazers.totalCount)
+}

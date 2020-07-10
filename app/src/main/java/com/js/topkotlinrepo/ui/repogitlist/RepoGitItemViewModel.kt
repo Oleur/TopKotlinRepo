@@ -1,5 +1,7 @@
 package com.js.topkotlinrepo.ui.repogitlist
 
+import com.js.topkotlinrepo.domain.repogitlist.RepoGit
+
 data class RepoGitItemViewModel(
     val id: String,
     val name: String,
@@ -12,4 +14,8 @@ data class RepoGitItemViewModel(
     fun onRepoGitSelected() {
         onRepoGitSelected(this)
     }
+}
+
+fun RepoGit.toRepoGitItemViewModel(onRepoGitSelected: (RepoGitItemViewModel) -> Unit): RepoGitItemViewModel {
+    return RepoGitItemViewModel(id, name, owner, description, stars, onRepoGitSelected)
 }

@@ -3,7 +3,6 @@ package com.js.topkotlinrepo.domain.repogitlist
 import com.js.topkotlinrepo.GetAllKotlinRepositoriesQuery
 import com.js.topkotlinrepo.GetIssuesQuery
 import com.js.topkotlinrepo.GetPullRequestsQuery
-import com.js.topkotlinrepo.GetRepositoryInsightsByDateQuery
 import com.js.topkotlinrepo.data.network.RepoGitRepository
 import com.js.topkotlinrepo.ui.repogit.DateRange
 import org.joda.time.DateTime
@@ -29,7 +28,7 @@ class RepoGitUseCase(private val repository: RepoGitRepository) {
             if (response.hasErrors()) {
                 null
             } else {
-                mapRepoGitDetail(response.data?.repository)
+                response.data?.repository?.toRepoGitDetail()
             }
         } catch (e: Exception) {
             null
@@ -87,25 +86,14 @@ class RepoGitUseCase(private val repository: RepoGitRepository) {
     }
 
     private fun mapIssues(issues: List<GetIssuesQuery.Node?>?) = issues?.map { node ->
-        val repo = node!!.asIssue!!
-        RepoIssue(repo.state, repo.title, repo.number)
+        node!!.asIssue!!.toRepoIssue()
     } ?: emptyList()
 
     private fun mapPullRequests(nodes: List<GetPullRequestsQuery.Node?>?) = nodes?.map { node ->
-        val pullRequest = node!!.asPullRequest!!
-        RepoPullRequest(pullRequest.state, pullRequest.title, pullRequest.number)
+        node!!.asPullRequest!!.toRepoPullRequest()
     } ?: emptyList()
 
-    private fun mapRepoGitDetail(repository: GetRepositoryInsightsByDateQuery.Repository?): RepoGitDetail? {
-        if (repository == null) return null
-
-        return RepoGitDetail(repository.name, repository.owner.login, repository.description,
-            repository.stargazers.totalCount, repository.issues.totalCount, repository.watchers.totalCount,
-            repository.forkCount, repository.pullRequests.totalCount)
-    }
-
     private fun mapRepoGitList(nodes: List<GetAllKotlinRepositoriesQuery.Node?>?) = nodes?.map { node ->
-        val repo = node!!.asRepository!!
-        RepoGit(repo.id, repo.name, repo.owner.login, repo.description, repo.stargazers.totalCount)
+        node!!.asRepository!!.toRepoGit()
     } ?: emptyList()
 }
